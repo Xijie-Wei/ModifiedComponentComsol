@@ -1,0 +1,9 @@
+cff-version: 1.0.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Wei"
+  given-names: "Xijie"
+title: "ModifiedComponentComsol"
+version: 1.0.0
+date-released: 2026-04-15
+url: "https://github.com/Xijie-Wei/ModifiedComponentComsol"
