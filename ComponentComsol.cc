@@ -899,7 +899,7 @@ bool ComponentComsol::InitialiseMagnticField(const std::string &mesh,
   const std::size_t nPrint =
       std::pow(10, static_cast<std::size_t>(
                        std::max(std::floor(std::log10(nNodes)) - 1, 1.)));
-  std::cout << m_className << "::Initialise: Reading potentials.\n";
+  std::cout << m_className << "::Initialise: Reading MagneticField.\n";
   PrintProgress(0.);
   // Build a k-d tree from the node coordinates.
   std::vector<std::vector<double> > points;
@@ -954,7 +954,7 @@ bool ComponentComsol::InitialiseMagnticField(const std::string &mesh,
   if (m_range.set) nMissing = nMissing - m_nodes.size() + nInRange;
   if (nMissing > 0) {
     std::cerr << m_className << "::Initialise:\n"
-              << "    Missing potentials for " << nMissing << " nodes.\n";
+              << "    Missing MagneticField for " << nMissing << " nodes.\n";
     // return false;
   }
 
@@ -991,7 +991,7 @@ void ComponentComsol::MagneticField(const double xin, const double yin, const do
   // Stop if the point is not in the mesh.
   if (imap < 0) {
     if (m_debug) {
-      std::cerr << m_className << "::ElectricField: (" << x << ", " << y << ", "
+      std::cerr << m_className << "::MagneticField: (" << x << ", " << y << ", "
                 << z << ") is not in the mesh.\n";
     }
     status = -6;
