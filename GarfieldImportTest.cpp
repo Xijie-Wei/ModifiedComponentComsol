@@ -14,7 +14,7 @@
 #include "Garfield/ViewField.hh"
 #include "Garfield/ParticleTypes.hh"
 #include "Garfield/ComponentConstant.hh"
-#include "./ComponentComsol.hh"
+#include "ComponentComsol.hh"
 #include "Garfield/AvalancheMicroscopic.hh"
 
 using namespace Garfield;
@@ -27,23 +27,24 @@ int main(int argc, char* argv[]) {
     gas.SetTemperature(273.15);
     gas.LoadGasFile("1AtmCF4.gas");
 
-    /*
+    
     ComponentComsol fm;
     fm.Initialise("mesh.mphtxt", "dielectirc.dat", "potential.txt");
     std::cout << "Initialise magnetic field" << std::endl;
     fm.InitialiseMagnticField("mesh.mphtxt", "dielectirc.dat", "magneticfield.txt");
     fm.PrintRange();
     fm.SetGas(&gas);
-    */
+    
     
     
     // Using ComponentConstant as a ref
+    /*
     ComponentConstant fm;
     fm.SetMagneticField(0.,0.,0.);
     fm.SetElectricField(0.,0.,99.994);
     fm.SetArea(-5,-5,0,5,5,5);
     fm.SetMedium(&gas);
-    
+    */
 
     /*
     // test if can found magnetic field from fm (passed) 
@@ -60,11 +61,23 @@ int main(int argc, char* argv[]) {
     fieldView.SetPlane(0, -1, 0, 0, 0, 0);
     // Set the plot limits in the current viewing plane.
     fieldView.SetArea(-5, -.5 ,5,  5.5);
-    TCanvas* cf = new TCanvas("cf", "", 600, 600);
-    cf->SetLeftMargin(0.16);
-    fieldView.SetCanvas(cf);
-    fieldView.PlotContour();
-    cf->SaveAs("field.png");
+    TCanvas* cfPon = new TCanvas("cfP", "", 600, 600);
+    cfPon->SetLeftMargin(0.16);
+    fieldView.SetCanvas(cfPon);
+    fieldView.PlotContour("p");
+    cfPon->SaveAs("Potential.png");
+    
+    TCanvas* cfBMag = new TCanvas("cfBmag", "", 600, 600);
+    cfBMag->SetLeftMargin(0.16);
+    fieldView.SetCanvas(cfBMag);
+    fieldView.PlotContour("bmag");
+    cfBMag->SaveAs("BfieldMag.png");
+
+    TCanvas* cfBZ = new TCanvas("cfBz", "", 600, 600);
+    cfBZ->SetLeftMargin(0.16);
+    fieldView.SetCanvas(cfBZ);
+    fieldView.PlotContour("bz");
+    cfBZ->SaveAs("Bfieldz.png");
 
     Sensor sensor(&fm);
     std::cout<< "Number of components: "<< sensor.GetNumberOfComponents()<< std::endl;
@@ -82,6 +95,7 @@ int main(int argc, char* argv[]) {
     */
 
     // Monte Carlo
+    /*
     double Initx = 0., Inity = 1., Initz = 4.9, InitE = 0.; // [cm], [cm], [cm], [eV]
     int NumEvents = 500;
 
@@ -111,4 +125,5 @@ int main(int argc, char* argv[]) {
     // the important part
     for (int idx = 0; idx < NumEvents; idx ++){ outFile << xFinas[idx] <<" , " << yFinas[idx]<<" , " << tFinas[idx] <<"\n";}
     outFile.close();
+    */
 }
